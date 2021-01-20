@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 import java.util.Random;
 
 public class Population {
+    private final int partnerPickerOption = 2;
+
     private int generations = 0;
     private boolean finished = false;
     private final String target;
@@ -40,17 +42,33 @@ public class Population {
     public void generateNextGen() {
         var totalFitness = 0f;
         var maxFitness = 0f;
+
         for (DNA dna : this.population) {
             totalFitness += dna.getFitness() - 0.01;
             maxFitness = Math.max(dna.getFitness(), maxFitness);
+        }
+
+        if (this.partnerPickerOption == 2) {
+            for (DNA dna : this.population) {
+                dna.normalizeFitness(totalFitness);
+            }
         }
 
         this.averageFitness = totalFitness / this.popMax;
 
         var newPopulation = new DNA[this.popMax];
         for (int i = 0; i < this.popMax; i++) {
-            var partnerA = acceptReject(maxFitness);
-            var partnerB = acceptReject(maxFitness);
+
+            DNA partnerA, partnerB;
+            // Option 1: pick new partner based on 1 random index and accept or reject
+            if (this.partnerPickerOption == 1) {
+                partnerA = acceptReject(maxFitness);
+                partnerB = acceptReject(maxFitness);
+            } else {
+                // Option 2: pick new partners based on 1 random index
+                partnerA = randomSelect();
+                partnerB = randomSelect();
+            }
 
             // Performs crossover of partnerA and partnerB
             var child = partnerA.crossover(partnerB);
@@ -62,6 +80,18 @@ public class Population {
 
         population = newPopulation;
         this.generations++;
+    }
+
+    private DNA randomSelect() {
+        var index = 0;
+        var r = new Random().nextFloat();
+
+        while (r > 0) {
+            r = r - this.population[index].getNormalizedFitness();
+            index++;
+        }
+
+        return this.population[--index];
     }
 
     private DNA acceptReject(float maxFitness) {

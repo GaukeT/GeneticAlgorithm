@@ -5,6 +5,7 @@ import java.util.Random;
 public class DNA {
     private final char[] genes;
     private float fitness;
+    private float normalizedFitness;
 
     public DNA(int length) {
         this.genes = new char[length];
@@ -57,5 +58,13 @@ public class DNA {
 
     public float getFitness() {
         return fitness;
+    }
+
+    public void normalizeFitness(float totalFitness) {
+        this.normalizedFitness = this.fitness / totalFitness;
+    }
+
+    public float getNormalizedFitness() {
+        return this.normalizedFitness;
     }
 }
