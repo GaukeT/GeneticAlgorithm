@@ -45,7 +45,7 @@ public class Population {
             maxFitness = Math.max(dna.getFitness(), maxFitness);
         }
 
-        this.averageFitness = totalFitness / (this.popMax * 2);
+        this.averageFitness = totalFitness / this.popMax;
 
         var newPopulation = new DNA[this.popMax];
         for (int i = 0; i < this.popMax; i++) {
@@ -93,10 +93,10 @@ public class Population {
             }
         }
 
-        System.out.println("best phrase: " + best.getPhrase() + " (" + round((best.getFitness()) / 2 * 100) + "%) | generation: " + this.generations);
+        System.out.println("best phrase: " + best.getPhrase() + " (" + round((best.getFitness() - 0.01f) * 100) + "%) | generation: " + this.generations);
 
         // If target found or failsafe for amount of generations.
-        if (best.getPhrase().equals(target) || (this.generations >= 1_000 && (best.getFitness() / 2) >= 0.80f)) {
+        if (best.getPhrase().equals(target) || (this.generations >= 1_000 && (best.getFitness()) >= 0.80f)) {
             this.finished = true;
         }
     }

@@ -21,7 +21,7 @@ public class DNA {
         }
 
         this.fitness = score / target.length();
-        this.fitness = this.fitness * 2 + 0.01f;
+        this.fitness = (float) Math.pow(this.fitness, 2) + 0.01f;
     }
 
     public DNA crossover(DNA partner) {

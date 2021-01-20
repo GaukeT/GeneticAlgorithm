@@ -2,7 +2,8 @@ package nl.gauket;
 
 public class Application {
 
-    private static final String target       = "talk is cheap, show me the code.";
+//    private static final String target       = "talk is cheap, show me the code.";
+    private static final String target       = "it always seems impossible until it is done.";
     // Size of population
     private static final int    popMax       = 300;
     // Mutation percentage 1% - 100%
