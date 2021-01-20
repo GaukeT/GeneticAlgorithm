@@ -37,7 +37,7 @@ public class Population {
         // Merged with generate method.
     }
 
-    public void generate() {
+    public void generateNextGen() {
         var totalFitness = 0f;
         var maxFitness = 0f;
         for (DNA dna : this.population) {

@@ -30,7 +30,7 @@ public class Application {
             // Perform selection
             population.naturalSelection();
             // Create next generation
-            population.generate();
+            population.generateNextGen();
         }
     }
 }
