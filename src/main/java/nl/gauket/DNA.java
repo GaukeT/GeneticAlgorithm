@@ -47,7 +47,7 @@ public class DNA {
 
     private char newChar() {
         var rd = new Random();
-        var alphabet = "abcdefghijklmnopqrstuvwxyz. ";
+        var alphabet = "abcdefghijklmnopqrstuvwxyz., ";
         return alphabet.charAt(rd.nextInt(alphabet.length()));
     }
 

@@ -1,5 +1,7 @@
 package nl.gauket;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 
 public class Population {
@@ -27,12 +29,12 @@ public class Population {
             dna.calcFitness(this.target);
         }
 
-        // evaluate if all best is found
+        // Evaluate if target is already found
         this.evaluate();
     }
 
     public void naturalSelection() {
-        // merged with generate method.
+        // Merged with generate method.
     }
 
     public void generate() {
@@ -50,9 +52,9 @@ public class Population {
             var partnerA = acceptReject(maxFitness);
             var partnerB = acceptReject(maxFitness);
 
-            // perform crossover of partnerA and partnerB
+            // Performs crossover of partnerA and partnerB
             var child = partnerA.crossover(partnerB);
-            // mutateChild based on mutationRate
+            // Mutate child based on mutationRate
             child.mutate(this.mutationRate);
 
             newPopulation[i] = child;
@@ -68,14 +70,14 @@ public class Population {
             var index = new Random().nextInt(this.popMax);
             var parent = this.population[index];
 
-            // more likely to accept parents with higher fitness
+            // More likely to accept parents with higher fitness
             var r = new Random().nextFloat() * maxFitness;
             if (r < parent.getFitness()) {
                 return parent;
             }
 
             failsafe++;
-            // accept it anyway :)
+            // Accept it anyway :)
             if (failsafe >= (this.popMax * 10)) return parent;
         }
     }
@@ -91,10 +93,10 @@ public class Population {
             }
         }
 
-        System.out.println("Best phrase: " + best.getPhrase() + " (" + ((best.getFitness()) / 2 * 100) + ")");
+        System.out.println("best phrase: " + best.getPhrase() + " (" + round((best.getFitness()) / 2 * 100) + "%) | generation: " + this.generations);
 
-        // if target found or failsafe for amount of generations.
-        if (best.getPhrase().equals(target) || this.generations >= 1000) {
+        // If target found or failsafe for amount of generations.
+        if (best.getPhrase().equals(target) || (this.generations >= 1_000 && (best.getFitness() / 2) >= 0.80f)) {
             this.finished = true;
         }
     }
@@ -102,11 +104,15 @@ public class Population {
     public boolean isFinished() {
         if (this.finished) {
             System.out.printf("total generations: %d%n", this.generations);
-            System.out.println("average fitness: " + (this.averageFitness * 100) + "%");
+            System.out.println("average fitness: " + round(this.averageFitness * 100) + "%");
             System.out.printf("total population: %d%n", this.popMax);
             System.out.println("mutation rate: " + (this.mutationRate) + "%");
         }
 
         return this.finished;
+    }
+
+    private float round(float f) {
+        return BigDecimal.valueOf(f).setScale(2,  RoundingMode.HALF_UP).floatValue();
     }
 }

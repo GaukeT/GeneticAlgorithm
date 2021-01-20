@@ -1,13 +1,11 @@
 package nl.gauket;
 
-import java.util.Random;
-
 public class Application {
 
-    private static final String target       = "to be or not to be.";
-    // size of population
-    private static final int    popMax       = 200;
-    // mutation percentage 1% - 100%
+    private static final String target       = "talk is cheap, show me the code.";
+    // Size of population
+    private static final int    popMax       = 300;
+    // Mutation percentage 1% - 100%
     private static final int    mutationRate = 1;
 
     private static Population population;
