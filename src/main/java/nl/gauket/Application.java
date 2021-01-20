@@ -5,8 +5,10 @@ import java.util.Random;
 public class Application {
 
     private static final String target       = "to be or not to be.";
+    // size of population
     private static final int    popMax       = 200;
-    private static final float  mutationRate = 0.01f;
+    // mutation percentage 1% - 100%
+    private static final int    mutationRate = 1;
 
     private static Population population;
 
@@ -24,13 +26,12 @@ public class Application {
         while (true) {
             // Calculate fitness
             population.calcFitness();
+            if (population.isFinished()) break;
+
             // Perform selection
             population.naturalSelection();
             // Create next generation
             population.generate();
-
-            population.evaluate();
-            if (population.isFinished()) break;
         }
     }
 }
