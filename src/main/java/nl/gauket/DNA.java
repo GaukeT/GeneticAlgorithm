@@ -15,6 +15,10 @@ public class DNA {
         }
     }
 
+    public DNA(char[] genes) {
+        this.genes = genes;
+    }
+
     public void calcFitness(String target) {
         var score = 0f;
         for (int i = 0; i < this.genes.length; i++) {
@@ -26,16 +30,15 @@ public class DNA {
     }
 
     public DNA crossover(DNA partner) {
-        var child = new DNA(this.genes.length);
-
+        var newGenes = new char[this.genes.length];
         var midPoint = new Random().nextInt(this.genes.length);
 
         for (int i = 0; i < this.genes.length; i++) {
-            if (i > midPoint) child.genes[i] = this.genes[i];
-            else child.genes[i] = partner.genes[i];
+            if (i > midPoint) newGenes[i] = this.genes[i];
+            else newGenes[i] = partner.genes[i];
         }
 
-        return child;
+        return new DNA(newGenes);
     }
 
     public void mutate(int mutationRate) {
