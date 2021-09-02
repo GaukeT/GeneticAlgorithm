@@ -36,7 +36,7 @@ public class Population {
     }
 
     public void naturalSelection() {
-        // Merged with generate method.
+        // Merged with generateNextGen() method.
     }
 
     public void generateNextGen() {
