@@ -7,4 +7,4 @@ An implementation of a Genetic algorithm inspired by the YouTube playlist [The N
 
 # info
 - JAVA 16
-- Gradle 7.1
+- Gradle 7.5.1
