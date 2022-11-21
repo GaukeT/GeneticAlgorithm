@@ -5,8 +5,7 @@ import java.math.RoundingMode;
 import java.util.Random;
 
 public class Population {
-    private final int partnerPickerOption = 2;
-
+    private final OPTION partnerPickerOption;
     private int generations = 0;
     private boolean finished = false;
     private final String target;
@@ -15,11 +14,12 @@ public class Population {
     private DNA[] population;
     private float averageFitness = 0.0f;
 
-    public Population(String target, int mutationRate, int popMax) {
+    public Population(String target, int mutationRate, int popMax, OPTION partnerPickerOption) {
         this.popMax = popMax;
         this.population = new DNA[popMax];
         this.target = target;
         this.mutationRate = mutationRate;
+        this.partnerPickerOption = partnerPickerOption;
 
         for (int i = 0; i < popMax; i++) {
             this.population[i] = new DNA(target.length());
@@ -48,7 +48,7 @@ public class Population {
             maxFitness = Math.max(dna.getFitness(), maxFitness);
         }
 
-        if (this.partnerPickerOption == 2) {
+        if (this.partnerPickerOption.value == 2) {
             for (DNA dna : this.population) {
                 dna.normalizeFitness(totalFitness);
             }
@@ -61,7 +61,7 @@ public class Population {
 
             DNA partnerA, partnerB;
             // Option 1: pick new partner based on 1 random index and accept or reject
-            if (this.partnerPickerOption == 1) {
+            if (this.partnerPickerOption.value == 1) {
                 partnerA = acceptReject(maxFitness);
                 partnerB = acceptReject(maxFitness);
             } else {

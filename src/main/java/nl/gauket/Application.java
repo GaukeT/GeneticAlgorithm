@@ -18,7 +18,7 @@ public class Application {
 
     private static void setup() {
         // Create a population with the target, mutationRate and max population size.
-        population = new Population(target, mutationRate, popMax);
+        population = new Population(target, mutationRate, popMax, OPTION.ACCEPTREJECT);
     }
 
     private static void loop() {
