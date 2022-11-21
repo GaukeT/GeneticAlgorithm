@@ -6,7 +6,7 @@ import java.util.Vector;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 
-public class MethodSwitch {
+public class MethodSwitchTests {
 
     @Test
     void p() {
